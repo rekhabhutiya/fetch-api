@@ -1,0 +1,81 @@
+<html>
+    <head>
+        <title>Add Information</title> 
+        <style>
+            table, th, td {
+                border: 1px solid;
+                border-collapse: collapse;
+                margin-left: auto;
+                margin-right: auto;
+                padding: 10px;
+            }
+        </style>
+    </head>
+    <body>
+        <table id="edit_table">
+        </table>
+        <script>
+
+            // -----------fetch specific record that You want to edit --------------
+            let id = new URL(location.href).searchParams.get("id");
+            let edit_table = document.getElementById("edit_table")
+            let url = "http://localhost:3000/users/"+`${id}`
+            let paraa = {
+                method : 'GET',
+                headers : {
+                    'Content-Type' : 'application/json'
+                }
+                }
+                fetch(url, paraa)
+                .then((response) => { return response.json();})
+                .then((result) => { 
+                    
+                        var row = `<tr>
+                <td>Edit First</td><td><input type="text" id="txtfnm" value="${result['firstName']}"></td>
+            </tr>
+            <tr>
+                <td>Edit LastName</td><td><input type="text" id="txtlnm" value="${result['lastName']}"></td>
+            </tr>
+            <tr>
+                <td>Edit</td><td><input type="text" id="txtaddress" value="${result['address']}"></td>
+            </tr>
+            <tr>
+                <td>Edit</td><td><input type="text" id="txtemail" value="${result['email']}"></td>
+            </tr>
+            <tr>
+                <td colspan="2"><button onclick="editdata(${result['id']})" style="margin-left:45%;margin-right: 50%;">ADD</button></td>
+            </tr>`;
+                                    
+                        edit_table.innerHTML = row;
+                                
+                 })
+                .catch((error) => { console.log('error', error); })
+            //--------------End Of specific record block------------------------ 
+            
+            //----------------Edit or Update specific record--------------------
+            function editdata(edit_id)
+            {
+                let id = edit_id
+                let fnm = document.getElementById("txtfnm").value;
+                let lnm = document.getElementById("txtlnm").value;
+                let address = document.getElementById("txtaddress").value;
+                let email = document.getElementById("txtemail").value;
+                let dataa = {"firstName" : `${fnm}`,"lastName" : `${lnm}`,"address":`${address}`,"email":`${email}`}
+                let url = "http://localhost:3000/users/"+`${id}`
+
+                let para = {
+                method : 'PUT',
+                headers : {
+                    'Content-Type' : 'application/json'
+                },
+                    body : JSON.stringify(dataa)
+                }
+                fetch(url, para)
+                    .then((response) => { return response.json();})
+                    .then((result) => { window.location="crud.html"})
+                    .catch((error) => { console.log('error', error); })
+            }
+            //----------------End of Edit or Update Block-----------------
+             </script>
+    </body>
+</html>

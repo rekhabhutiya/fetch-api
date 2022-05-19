@@ -1,0 +1,59 @@
+<html>
+    <head>
+        <title>Add Information</title> 
+        <style>
+            table, th, td {
+                border: 1px solid;
+                border-collapse: collapse;
+                margin-left: auto;
+                margin-right: auto;
+                padding: 10px;
+            }
+        </style>
+    </head>
+    <body>
+        <table>
+            <tr>
+                <td>Enter First</td><td><input type="text" id="txtfnm"></td>
+            </tr>
+            <tr>
+                <td>Enter LastName</td><td><input type="text" id="txtlnm"></td>
+            </tr>
+            <tr>
+                <td>Address</td><td><input type="text" id="txtaddress"></td>
+            </tr>
+            <tr>
+                <td>Email</td><td><input type="text" id="txtemail"></td>
+            </tr>
+            <tr>
+                <td colspan="2"><button onclick="submitdata()" style="margin-left:45%;margin-right: 50%;">ADD</button></td>
+            </tr>
+        </table>
+        <script>
+            //---------------Add new Data-------------
+            function submitdata()
+            {
+                let fnm = document.getElementById("txtfnm").value;
+                let lnm = document.getElementById("txtlnm").value;
+                let address = document.getElementById("txtaddress").value;
+                let email = document.getElementById("txtemail").value;
+                
+                let dataa = {"firstName" : `${fnm}`,"lastName" : `${lnm}`,"address":`${address}`,"email":`${email}`}
+                
+                    let para = {
+                    method : 'POST',
+                    headers : {
+                        'Content-Type' : 'application/json'
+                    },
+                        body : JSON.stringify(dataa),
+                    }
+                    fetch("http://localhost:3000/users/", para)
+                    .then((response) => { return response.json();})
+                    .then((result) => { window.location="crud.html"})
+                    .catch((error) => { console.log('error', error); })
+                    
+            }
+            //-------------End of Add New Data Block----------------
+        </script>
+    </body>
+</html>

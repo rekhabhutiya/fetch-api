@@ -1,0 +1,21 @@
+<Html>
+<head>
+    <title>Delete Information</title>
+</head>
+<body>
+    <script>
+        let delete_id = new URL(location.href).searchParams.get("id");
+        let url = "http://localhost:3000/users/"+`${delete_id}`
+        let para = {
+                    method : 'DELETE',
+                    headers : {
+                        'Content-Type' : 'application/json'
+                    }
+                    }
+                    fetch(url, para)
+                    .then((response) => { return response.json();})
+                    .then((result) => { window.location="crud.html"})
+                    .catch((error) => { console.log('error', error); })
+    </script>
+</body>
+</Html>

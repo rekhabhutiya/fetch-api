@@ -1,0 +1,80 @@
+<html>
+    <head>
+        <title>
+            Fetch Api Example
+        </title>
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
+
+        <style>
+            table, th, td {
+                border: 1px solid;
+                border-collapse: collapse;
+                margin-left: auto;
+                margin-right: auto;
+            }
+        </style>
+
+</head>
+    <body>
+            <table class="tbl" id="dispTable">
+                <tr class="tr-data">
+                    <th>Id</th>
+                    <th>firstName</th>
+                    <th>lastName</th>
+                    <th>Address</th>
+                    <th>Email</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
+                </tr>
+            </table>
+            <a href="add_info.html" style="padding: 20px;position: absolute;">Add Info</a>
+<script>
+                
+                let table = document.getElementById("dispTable");
+                
+                
+                // ---Fetch or Display All Data---
+                let para = {
+                method : 'GET',
+                headers : {
+                    'Content-Type' : 'application/json'
+                }
+                }
+                fetch("http://localhost:3000/users/", para)
+                .then((response) => { return response.json();})
+                .then((result) => { 
+                   /* for(var i =0 ; i < result.length; i++)
+                    {
+                        var row = `<tr>
+                                        <td>${result[i].id}</td>
+                                        <td>${result[i].firstName}</td>
+                                        <td>${result[i].lastName}</td>
+                                        <td>${result[i].address}</td>
+                                        <td>${result[i].email}</td>
+                                        <td><a href="edit_info.html?id=${result[i].id}"><i class="fa fa-pencil fa-fw"></i></a></td>
+                                        <td><a href="delete_info.html?id=${result[i].id}"><i class="fa fa-trash-o fa-fw"></i></a></td>
+                                    </tr>`;
+                                    
+                        table.innerHTML += row;
+                    }*/
+                    result.map(function(element){
+                        var row = `<tr>
+                                        <td>${element.id}</td>
+                                        <td>${element.firstName}</td>
+                                        <td>${element.lastName}</td>
+                                        <td>${element.address}</td>
+                                        <td>${element.email}</td>
+                                        <td><a href="edit_info.html?id=${element.id}"result><i class="fa fa-pencil fa-fw"></i></a></td>
+                                        <td><a href="delete_info.html?id=${element.id}"><i class="fa fa-trash-o fa-fw"></i></a></td>
+                                    </tr>`;
+                                    
+                        table.innerHTML += row;
+                    })
+
+                 })
+                .catch((error) => { console.log('error', error); })
+
+                //--------------------End of Fetch Data Block---------------
+            </script>
+</body>
+</html>     

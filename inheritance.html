@@ -1,0 +1,36 @@
+<html>
+    <head>
+        <title>Inheritance</title>
+    </head>
+    <body>
+        <script>
+
+            class A{
+                constructor(no1,no2)
+                {
+                    this.no1 = no1
+                    this.no2 = no2
+                    console.log("Class A counstructor")
+                    console.log("No1 : " +this.no1 + " " + "No2 : "+ this.no2)
+                }
+            }
+            class B extends A{
+                    addition()
+                    {
+                        let ans = this.no1 + this.no2
+                        console.log("Addition of Two no : "+ `${ans}`)
+                    }
+            }
+            class C extends B{
+                    multiplication()
+                    {
+                        let ans = this.no1 * this.no2
+                        console.log("Multiplication of Two no : "+ `${ans}`)
+                    }
+            }
+            let obj = new C(4,5)
+            obj.addition()
+            obj.multiplication()
+        </script>
+    </body>
+</html>
